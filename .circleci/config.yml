@@ -5,25 +5,12 @@
 version: 2
 jobs:
   build:
-    branches:
-      ignore:
-        - gh-pages
-
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:8.11
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      
     working_directory: ~/repo
 
-    environment:
-      - SOURCE_BRANCH: master
-      - TARGET_BRANCH: gh-pages
-      - GITHUB_EMAIL: circleci@gh-pages.com
-      - GITHUB_NAME: CircleCI
+    docker:
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      - image: circleci/node:8.11
 
     steps:
       - checkout
@@ -45,25 +32,48 @@ jobs:
       # run tests
       - run: yarn test
 
-      # deploy
-      - deploy:
-        command: |
-          if [ $CIRCLE_BRANCH == $SOURCE_BRANCH ]; then
-              git config --global user.email ${GITHUB_EMAIL}
-              git config --global user.name ${GITHUB_NAME}
+  # deploy
+  - deploy:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:8.11
+    environment:
+      - SOURCE_BRANCH: master
+      - TARGET_BRANCH: gh-pages
+      - GITHUB_EMAIL: circleci@gh-pages.com
+      - GITHUB_NAME: CircleCI
+    command: |
+      if [ $CIRCLE_BRANCH == $SOURCE_BRANCH ]; then
+          git config --global user.email ${GITHUB_EMAIL}
+          git config --global user.name ${GITHUB_NAME}
 
-              git clone $CIRCLE_REPOSITORY_URL out
-              cd out
-              git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-              git rm -rf .
-              cd ..
+          git clone $CIRCLE_REPOSITORY_URL out
+          cd out
+          git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+          git rm -rf .
+          cd ..
 
-              yarn docs:build
-              cp -a dest/. out/.
-              mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
+          yarn docs:build
+          cp -a dest/. out/.
+          mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
 
-              cd out
-              git add -A
-              git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
-              git push origin $TARGET_BRANCH
-          fi
+          cd out
+          git add -A
+          git commit -m "Automated deployment to GitHub Pages ${CIRCLE_SHA1}" --allow-empty
+          git push origin $TARGET_BRANCH
+      fi
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+        filters:
+          branches:
+            only: master
+      - deploy
+        requires:
+          - build
+        filters:
+          branches:
+            only: master
