@@ -26,6 +26,12 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn check
+  deploy:
+    docker:
+      - image: circleci/node:8.11
+    steps:
+      - checkout
+      - run: echo "A first hello"
 
   # deploy:
   #   working_directory: ~/repo
@@ -65,10 +71,7 @@ workflows:
   build-deploy:
     jobs:
       - build
-          filters:
-            branches:
-              only: master
-      # - deploy
+      - deploy
       #     requires:
       #       - build
       #     filters:
