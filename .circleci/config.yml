@@ -19,6 +19,7 @@ jobs:
             - v1-dependencies-
 
       - run: yarn install
+      - run: yarn global add vuepress
 
       - save_cache:
           paths:
