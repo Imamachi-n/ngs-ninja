@@ -23,6 +23,7 @@ git checkout ${TARGET_BRANCH} || git checkout --orphan ${TARGET_BRANCH}
 git rm -rf .
 cd ..
 
+yarn global add vuepress
 yarn docs:build
 cp -a dest/. out/.
 mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
