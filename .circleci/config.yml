@@ -34,7 +34,7 @@ jobs:
       - checkout
       - run: 
           name: Deploy GitHub
-          command: bash ./circleci/deploy.sh
+          command: bash .circleci/deploy.sh
 
   # deploy:
   #   working_directory: ~/repo
