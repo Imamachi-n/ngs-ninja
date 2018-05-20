@@ -3,8 +3,17 @@ prev: false
 next: false
 ---
 
-# テストです
-## テストです
+# NGS解析のための環境構築
+使っているOSによって、NGS解析の環境構築の方法は変わってきます。
+
+## MacOSの場合
+
+## Windowsの場合
+### Windows Subsystem for Linux (WSL)
+
+## Linuxの場合
+
+
 ### テストです
 [Home](/) 
 

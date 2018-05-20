@@ -10,6 +10,11 @@ module.exports = {
       { text: 'Tools', link: '/Tools/' },
       { text: 'Workflow', link: '/Workflow/' },
     ],
+    sidebar: {
+      '/About/': genSidebarConfigAbout('About')
+
+    },
+
     // Assumes GitHub. Can also be a full GitLab url.
     repo: 'Imamachi-n/ngs-ninja',
     // Customising the header label
@@ -32,5 +37,18 @@ module.exports = {
   },
   head: [
     ['link', { rel: 'icon', href: `/hero.png` }]
+  ]
+}
+
+function genSidebarConfigAbout (title) {
+  return [
+    {
+      title,
+      collapsable: false,
+      children: [
+        '',
+        'test'
+      ]
+    }
   ]
 }
