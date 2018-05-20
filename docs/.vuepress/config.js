@@ -3,6 +3,7 @@ module.exports = {
   title: 'NGS Ninja',
   description: 'Next-generation sequencing data analysis wiki',
   dest: 'public',
+  ga: 'UA-119599854-1',
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
@@ -11,9 +12,11 @@ module.exports = {
       { text: 'Workflow', link: '/Workflow/' },
     ],
     sidebar: {
-      '/About/': genSidebarConfigAbout('About')
+      '/About/': genSidebarConfigAbout('Get Started')
 
     },
+
+    lastUpdated: 'Last Updated',
 
     // Assumes GitHub. Can also be a full GitLab url.
     repo: 'Imamachi-n/ngs-ninja',
@@ -32,8 +35,7 @@ module.exports = {
     // custom text for edit link. Defaults to "Edit this page"
     editLinkText: 'Edit this page on GitHub',
 
-    theme: 'vue',
-    lastUpdated: 'Last Updated',
+    
   },
   head: [
     ['link', { rel: 'icon', href: `/hero.png` }]
