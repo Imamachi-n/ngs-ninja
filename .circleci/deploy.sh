@@ -25,7 +25,7 @@ cd ..
 
 yarn global add vuepress
 yarn docs:build
-cp -a dist/. out/.
+cp -a public/. out/.
 mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
 
 cd out
