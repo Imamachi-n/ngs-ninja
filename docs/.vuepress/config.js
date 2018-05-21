@@ -4,6 +4,7 @@ module.exports = {
   description: 'Next-generation sequencing data analysis wiki',
   dest: 'public',
   ga: 'UA-119599854-1',
+  serviceWorker: true,
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },
